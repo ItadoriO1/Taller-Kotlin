@@ -172,7 +172,7 @@ fun main() {
                     println("Total de medicos: ${hospital.cantidadDeMedicosPorEspecialidad(especialidad)}")
                 }
                 8 -> {
-                    println("Medico mas antiguo: ${hospital.medicoMasAntiguo()?.nombre}")
+                    println("Medico mas antiguo: ${hospital.medicoMasAntiguo()?.nombre} y su especialidad es: ${hospital.medicoMasAntiguo()?.especialidad}")
                 }
             }
             println("Desea realizar otra accion?")
