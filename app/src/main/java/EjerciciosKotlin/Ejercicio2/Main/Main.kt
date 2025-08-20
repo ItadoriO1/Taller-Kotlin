@@ -5,8 +5,12 @@ import EjerciciosKotlin.Ejercicio2.Clases.Horario
 import EjerciciosKotlin.Ejercicio2.Clases.Medico
 import EjerciciosKotlin.Ejercicio2.Clases.Paciente
 import EjerciciosKotlin.Ejercicio2.Controller.HospitalController
+import EjerciciosKotlin.Ejercicio2.Controller.MedicoController
 
 fun main() {
+
+    var medicoController : MedicoController
+
     println("!Bienvenido, para comenzar crea tu hospital¡")
 
     println("Nombre del hospital:")
@@ -34,6 +38,7 @@ fun main() {
 
     println("Felicidades creaste tu hospital ${hospital.hospital.nombre}")
 
+    do{
     println("Que desea hacer?")
 
     println("1.Manejo de medicos")
@@ -41,7 +46,7 @@ fun main() {
     var opcion = readln().toInt()
 
     if(opcion == 1){
-        do {
+
             println("1.Crar medico")
             println("2.Buscar Medico")
             println("3.Editar Medico")
@@ -50,6 +55,9 @@ fun main() {
             println("6.Total de salarios por especialidad")
             println("7.Total de medicos por especialidad")
             println("8.Medico mas antiguo")
+            println("9.Asignar paciente al medico")
+            println("10.Salir")
+
             var opcion2 = readln().toInt()
             when(opcion2){
                 1 -> {
@@ -87,7 +95,7 @@ fun main() {
                     var horaFin = readln()
 
                     println("Salario del medico:")
-                    var salario = readln().toInt()
+                    var salario = readln().toDouble()
 
                     hospital.createMedico(Medico(nombre, cedula, genero, email, telefono, numLicencia, especialidad, anioIngreso, salario, Horario(dia, horaInicio, horaFin)))
                 }
@@ -141,7 +149,7 @@ fun main() {
                         var horaFin = readln()
 
                         println("Salario del medico:")
-                        var salario = readln().toInt()
+                        var salario = readln().toDouble()
 
                         hospital.editMedico(Medico(nombre, cedula, genero, email, telefono, numLicencia, especialidad, anioIngreso, salario, Horario(dia, horaInicio, horaFin)))
                     }else{
@@ -172,19 +180,37 @@ fun main() {
                     println("Total de medicos: ${hospital.cantidadDeMedicosPorEspecialidad(especialidad)}")
                 }
                 8 -> {
-                    println("Medico mas antiguo: ${hospital.medicoMasAntiguo()?.nombre} y su especialidad es: ${hospital.medicoMasAntiguo()?.especialidad}")
+                    println("Medico mas antiguo: ${hospital.medicoMasAntiguo()?.nombre} y su especialidad es: ${hospital.medicoMasAntiguo()?.especialidad} ")
+                }
+                9 -> {
+                    println("Cedula del paciente:")
+                    var cedula = readln()
+                    var paciente = hospital.readPaciente(cedula)
+                    println("Paciente encontrado: ${paciente?.nombre}, ${paciente?.cedula}")
+
+                    println("Cedula del medico:")
+                    var cedulaMedico = readln()
+                    var medico = hospital.readMedico(cedulaMedico)
+                    println("Medico encontrado: ${medico?.nombre}, ${medico?.cedula}")
+
+                    medicoController = MedicoController(medico!!)
+                    medicoController.asignarPaciente(paciente!!)
+
+                    println("Paciente asignado ${medico.listaPaciente.last().nombre} al medico ${medico.nombre}")
+                }
+                10 -> {
+                    println("Saliendo...")
                 }
             }
-            println("Desea realizar otra accion?")
-            var continuar = readln().lowercase()
-        }while (continuar == "si")
     } else {
-        do{
+
             println("1.Crear paciente")
             println("2.Buscar paciente")
             println("3.Editar paciente")
             println("4.Eliminar paciente")
             println("5.Total de pacientes por genero")
+            println("6.Salir")
+
             var opcion2 = readln().toInt()
             when(opcion2){
                 1 -> {
@@ -203,7 +229,22 @@ fun main() {
                     println("Telefono del paciente:")
                     var telefono = readln()
 
-                    hospital.createPaciente(Paciente(nombre, cedula, genero, email, telefono))
+                    println("Calle donde se encuentra el hospital:")
+                    var calle = readln()
+
+                    println("Numero donde se encuentra el hospiatal:")
+                    var numero = readln()
+
+                    println("Barrio donde se encuentra el hospital:")
+                    var barrio = readln()
+
+                    println("Ciudad donde se encuentra el hospital:")
+                    var ciudad = readln()
+
+                    println("Codigo postal donde se encuentra el hospital:")
+                    var codigoPostal = readln()
+
+                    hospital.createPaciente(Paciente(nombre, cedula, genero, email, telefono,  Direccion(calle,numero,barrio,ciudad,codigoPostal)))
                 }
                 2 -> {
                     println("Cedula del paciente:")
@@ -238,7 +279,22 @@ fun main() {
                         println("Telefono del paciente:")
                         var telefono = readln()
 
-                        hospital.editPaciente(Paciente(nombre, cedula, genero, email, telefono))
+                        println("Calle donde se encuentra el hospital:")
+                        var calle = readln()
+
+                        println("Numero donde se encuentra el hospiatal:")
+                        var numero = readln()
+
+                        println("Barrio donde se encuentra el hospital:")
+                        var barrio = readln()
+
+                        println("Ciudad donde se encuentra el hospital:")
+                        var ciudad = readln()
+
+                        println("Codigo postal donde se encuentra el hospital:")
+                        var codigoPostal = readln()
+
+                        hospital.editPaciente(Paciente(nombre, cedula, genero, email, telefono, Direccion(calle,numero,barrio,ciudad,codigoPostal)))
                     }else{
                         println("No se encontro el paciente")
                     }
@@ -259,9 +315,12 @@ fun main() {
                     var genero = readln()
                     println("Total de pacientes: ${hospital.totalPacientesPorGenero(genero)}")
                 }
+                6 -> {
+                    println("Saliendo...")
+                }
             }
-            println("Desea realizar otra accion?")
-            var continuar = readln().lowercase()
-        }while (continuar == "si")
     }
+        println("Desea realizar otra accion?")
+        var continuar = readln().lowercase()
+    }while (continuar == "si")
 }

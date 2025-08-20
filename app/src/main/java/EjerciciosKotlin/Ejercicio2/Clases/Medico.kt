@@ -5,9 +5,10 @@ open class Medico : Persona {
     var numLicencia: String
     var especialidad : String
     var anioIngreso : Int
+
     val listaPaciente : MutableList<Paciente> = mutableListOf()
     var horario : Horario
-    var salario : Int
+    var salario : Double
 
     constructor(
         nombre: String,
@@ -18,7 +19,7 @@ open class Medico : Persona {
         numLicencia: String,
         especialidad : String,
         anioIngreso : Int,
-        salario : Int,
+        salario : Double,
         horario : Horario
     ) : super(nombre, cedula, genero, email, telefono) {
         this.numLicencia = numLicencia

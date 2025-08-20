@@ -18,7 +18,7 @@ class HospitalController{
 
     fun createMedico(medico: Medico){
         var med = hospital.listMedico.find { it.cedula == medico.cedula }
-        if(med == null && !med?.horario?.horaInicio.equals(med?.horario?.horaFin)){
+        if(med == null){
             hospital.listMedico.add(medico)
         } else {
             println("Revisa el horario del medico")
@@ -91,16 +91,16 @@ class HospitalController{
         }
     }
 
-    fun totalSalarios() : Int{
-        var total = 0
+    fun totalSalarios() : Double{
+        var total = 0.0
         for (medico in hospital.listMedico){
             total += medico.salario
         }
         return total
     }
 
-    fun totalSalariosEspecialidad(especialidad: String) : Int{
-        var total = 0
+    fun totalSalariosEspecialidad(especialidad: String) : Double{
+        var total = 0.0
         for (medico in hospital.listMedico){
             if (medico.especialidad.toLowerCase() == especialidad.toLowerCase()){
                 total += medico.salario
@@ -109,8 +109,8 @@ class HospitalController{
         return total
     }
 
-    fun totalPacientesPorGenero(genero: String) : Int{
-        var total = 0
+    fun totalPacientesPorGenero(genero: String) : Double{
+        var total = 0.0
         for (paciente in hospital.listPaciente){
             if (paciente.genero.toLowerCase() == genero.toLowerCase()){
                 total++
